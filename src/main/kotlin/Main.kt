@@ -3,7 +3,6 @@ import java.text.DecimalFormat
 fun main() {
     println("Pay Slip Printer")
     println(getFullName())
-    printer()
 
     println("Monthly Salary: ${getMonthlySalary()}")
     println("Monthly PRSI: ${getMonthlyPRSI()}")
@@ -12,6 +11,7 @@ fun main() {
     println("Monthly Deductions: ${getTotalMonthlyDeductions()}")
     println("Monthly Pay: ${getNetMonthlyPay()}")
 
+    println(getPayslip())
 
 
 }
@@ -31,15 +31,13 @@ val netpay = gross-totalDeductions
 val df = DecimalFormat("#.##")
 
 
-fun printer(){
-
-
-
-    println("""    ________________________________________________________________________
+fun getPayslip()=
+    """
+    ________________________________________________________________________
     |                            Monthly Payslip                           |
     |______________________________________________________________________|
     |                                                                      |
-    |      Employee Name: ${getFullName()}          Employee ID: ${employeeId}              |
+    |      Employee Name: ${getFullName()}          Employee ID: ${employeeId}          |
     |                                                                      |
     |______________________________________________________________________|
     |                                                                      |
@@ -52,9 +50,9 @@ fun printer(){
     |         Gross: ${df.format(gross)}                Total Deductions: ${df.format(totalDeductions)}      |
     |______________________________________________________________________|
     |                            NET PAY: ${df.format(netpay)}                          |
-    |______________________________________________________________________|""")
+    |______________________________________________________________________|"""
 
-}
+
 
 fun getFullName() =
     when (gender) {
