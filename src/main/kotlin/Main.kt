@@ -5,6 +5,14 @@ fun main() {
     println(getFullName())
     printer()
 
+    println("Monthly Salary: ${getMonthlySalary()}")
+    println("Monthly PRSI: ${getMonthlyPRSI()}")
+    println("Monthly PAYE: ${getMonthlyPAYE()}")
+    println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
+    println("Monthly Deductions: ${getTotalMonthlyDeductions()}")
+    println("Monthly Pay: ${getNetMonthlyPay()}")
+
+
 
 }
 
@@ -56,4 +64,16 @@ fun getFullName() =
             "Ms. $fName $lName"
         }
     }
+
+fun getMonthlySalary() = df.format(salary/12)
+
+fun getMonthlyPRSI() = df.format((salary/12)*PRSI)
+
+fun getMonthlyPAYE() = df.format((salary/12)*PAYE)
+
+fun getGrossMonthlyPay() = df.format((salary/12) + bonus/12)
+
+fun getTotalMonthlyDeductions() = df.format(((salary/12)*PRSI)+((salary/12)*PAYE)+scheme)
+
+fun getNetMonthlyPay() = df.format(netpay)
 
