@@ -1,103 +1,114 @@
-import java.text.DecimalFormat
+package ie.setu
 
-fun main(args: Array<String>) {
-    println("Pay Slip Printer")
-    println(getFullName())
+import Employee
+import kotlin.math.round
+
+
+
+fun main(args: Array<String>){
 
     var input : Int
-
+    add()
     do {
         input = menu()
-        when (input) {
-
-
-            1 ->     println("Monthly Salary: ${getMonthlySalary()}")
-            2 ->     println ("Monthly PRSI: ${getMonthlyPRSI()}")
-            3 ->     println ("Monthly PAYE: ${getMonthlyPAYE()}")
-            4 ->     println ("Monthly Gross Pay: ${getGrossMonthlyPay()}")
-            5 ->     println ("Monthly Deductions: ${getTotalMonthlyDeductions()}")
-            6 ->     println ("Monthly Pay: ${getNetMonthlyPay()}")
-            7 ->     println(getPayslip())
-            -1 ->    println("Exiting App")
-            else ->  println("Invalid Option")
+        when(input) {
+            1 -> println("Monthly Salary: ${getMonthlySalary()}")
+            2 -> println("Monthly PRSI: ${getMonthlyPRSI()}")
+            3 ->println("Monthly PAYE: ${getMonthlyPAYE()}")
+            4 -> println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
+            5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
+            6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
+            7 -> println(getPayslip())
+            -1 -> println("Exiting App")
+            else -> println("Invalid Option")
         }
-    } while (input != -1)
-
-
-
-
-}
-
-val fName = "Joe"
-val lName = "Soap"
-val gender = "m"
-val employeeId = 6143
-val salary = 67543.21
-val PAYE = .385 //percentage
-val PRSI = .052 //percentage
-val bonus = 1450.50
-val scheme = 54.33
-val gross = (salary/12)+bonus/12
-val totalDeductions = ((salary/12)*PAYE)+((salary/12)*PRSI)+scheme
-val netpay = gross-totalDeductions
-val df = DecimalFormat("#.##")
-
-
-fun getPayslip()=
-    """
-    ________________________________________________________________________
-    |                            Monthly Payslip                           |
-    |______________________________________________________________________|
-    |                                                                      |
-    |      Employee Name: ${getFullName()}          Employee ID: ${employeeId}          |
-    |                                                                      |
-    |______________________________________________________________________|
-    |                                                                      |
-    |         PAYMENT DETAILS                  DEDUCTION DETAILS           |
-    |______________________________________________________________________|
-    |         Salary: ${df.format(salary/12)}                    PAYE: ${df.format((salary/12)*PAYE)}              |
-    |         Bonus:  ${df.format(bonus/12)}                    PRSI:${df.format((salary/12)*PRSI)}                |
-    |                                       Cycle To Work: ${df.format(scheme)}           |
-    |______________________________________________________________________|
-    |         Gross: ${df.format(gross)}                Total Deductions: ${df.format(totalDeductions)}      |
-    |______________________________________________________________________|
-    |                            NET PAY: ${df.format(netpay)}                          |
-    |______________________________________________________________________|"""
-
-
-
-fun getFullName() =
-    when (gender) {
-        "m" -> "Mr. $fName $lName"
-
-        else -> {
-            "Ms. $fName $lName"
-        }
+        println()
     }
 
-fun getMonthlySalary() = df.format(salary/12)
 
-fun getMonthlyPRSI() = df.format((salary/12)*PRSI)
+    while (input != -1)
+}
 
-fun getMonthlyPAYE() = df.format((salary/12)*PAYE)
+var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
 
-fun getGrossMonthlyPay() = df.format((salary/12) + bonus/12)
 
-fun getTotalMonthlyDeductions() = df.format(((salary/12)*PRSI)+((salary/12)*PAYE)+scheme)
-
-fun getNetMonthlyPay() = df.format(netpay)
 
 fun menu() : Int {
     print("""
-        Employee Menu for ${getFullName()}
-            1. Monthly Salary
-            2. Monthly PRSI
-            3.Monthly PAYE
-            4. Monthly Gross Pay
-            5. Monthly Total Deductions
-            6. Monthly Net Pay
-            7. Full Payslip
-           -1. Exit
-          Enter Option : """)
+         Employee Menu for ${getFullName()}
+           1. Monthly Salary
+           2. Monthly PRSI
+           3. Monthly PAYE
+           4. Monthly Gross Pay
+           5. Monthly Total Deductions
+           6. Monthly Net Pay
+           7. Full Payslip
+          -1. Exit
+         Enter Option : """)
     return readLine()!!.toInt()
 }
+
+
+
+fun add(){
+    print("Enter first name: ")
+    val firstName = readLine().toString()
+    print("Enter surname: ")
+    val surname = readLine().toString()
+    print("Enter gender (m/f): ")
+    val gender = readLine()!!.toCharArray()[0]
+    print("Enter employee ID: ")
+    val employeeID = readLine()!!.toInt()
+    print("Enter gross salary: ")
+    val grossSalary = readLine()!!.toDouble()
+    print("Enter PAYE %: ")
+    val payePercentage = readLine()!!.toDouble()
+    print("Enter PRSI %: ")
+    val prsiPercentage = readLine()!!.toDouble()
+    print("Enter Annual Bonus: ")
+    val annualBonus= readLine()!!.toDouble()
+    print("Enter Cycle to Work Deduction: ")
+    val cycleToWorkMonthlyDeduction= readLine()!!.toDouble()
+
+    employee = Employee(firstName, surname, gender, employeeID, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction)
+}
+
+
+
+fun getFullName() = when (employee.gender){
+    'm', 'M' -> "Mr. ${employee.fName} ${employee.lName}"
+    'f', 'F' -> "Ms. ${employee.fName} ${employee.lName}"
+    else -> "${employee.fName} ${employee.lName}"
+}
+
+fun getMonthlySalary() = roundTwoDecimals(employee.salary / 12)
+fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (employee.PRSI / 100))
+fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (employee.PAYE / 100))
+fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (employee.bonus / 12))
+fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + employee.scheme))
+fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
+
+fun getPayslip() =
+    """
+        ______________________________________________________________________
+         Monthly Payslip:             ${getFullName()}, ID: ${employee.employeeID}                  
+        ______________________________________________________________________    
+              PAYMENT DETAILS (gross pay: ${getGrossMonthlyPay()})                                                                    
+        ______________________________________________________________________
+                   Salary: ${getMonthlySalary()}
+                   Bonus:  ${roundTwoDecimals(employee.bonus / 12)}            
+        ______________________________________________________________________
+              DEDUCTION DETAILS (total Deductions: ${getTotalMonthlyDeductions()})      
+        ______________________________________________________________________
+                   PAYE: ${getMonthlyPAYE()}                
+                   PRSI: ${getMonthlyPRSI()}  
+                   Cycle To Work: ${employee.scheme}         
+        ______________________________________________________________________
+             NET PAY: ${getNetMonthlyPay()} 
+        ______________________________________________________________________"""
+
+//https://discuss.kotlinlang.org/t/how-do-you-round-a-number-to-n-decimal-places/8843
+//There are several options...try each of them out
+fun roundTwoDecimals(number: Double) = round(number * 100) / 100
+//fun roundTwoDecimals(number: Double) = "%.2f".format(number).toDouble()
+
