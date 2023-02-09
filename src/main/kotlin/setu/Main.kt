@@ -1,11 +1,18 @@
 package setu
 
+import mu.KotlinLogging
 
 
 var employees = EmployeeAPI()
+val logger = KotlinLogging.logger {}
 
 fun main(args: Array<String>){
+    logger.info { "Launching Employee App" }
+    logger.info { "Loading" }
+    logger.info { "Fetching Data" }
+    logger.info { "Almost there" }
     start()
+
 }
 
 
