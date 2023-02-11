@@ -28,6 +28,7 @@ fun start() {
             2 -> list()
             3 -> search()
             4 -> paySlip()
+            5 -> delete()
             -99 -> dummyData()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
@@ -81,6 +82,7 @@ fun menu() : Int {
          |   2. List All Employees
          |   3. Search Employees 
          |   4. Print Payslip for Employee
+         |   5. Delete
          |  -1. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -117,6 +119,16 @@ fun add(){
 
 
 
+fun update(){
+
+}
+
+
+fun delete() { //delete event number that was entered
+    print("Enter the employee id to search by: ")
+    val employeeID = readLine()!!.toInt()
+        employees.remove(employeeID)
+    }
 
 
 

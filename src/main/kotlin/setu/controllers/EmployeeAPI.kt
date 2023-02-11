@@ -1,5 +1,6 @@
 package setu.controllers
 
+import setu.getEmployeeById
 import setu.models.Employee
 
 var lastId = 0
@@ -25,6 +26,9 @@ class EmployeeAPI {
         employees.add(employee)
     }
 
+    fun remove(employeeID: Int) {
+        employees.remove(getEmployeeById())
+    }
 
 
 
