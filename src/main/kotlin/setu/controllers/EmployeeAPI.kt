@@ -31,7 +31,7 @@ class EmployeeAPI {
     }
 
     fun replace(employee: Employee){
-        employees.set(getId(), employee)
+        employees.set()
     }
 
 
