@@ -38,6 +38,28 @@ fun start() {
     } while (input != -1)
 }
 
+fun menu() : Int {
+    print(""" __________________________________________
+              |              Employee Menu               |
+              |   1. Add Employee                        | 
+              |   2. List All Employees                  |
+              |   3. Search Employees                    |
+              |   4. Print Payslip for Employee          |
+              |   5. Delete                              |
+              |   6. Update Employee                     |
+              |  -1. Exit                                |
+              |                                          |
+              |Enter Option : """.trimMargin())
+    return readLine()!!.toInt()
+}
+
+
+fun dummyData() {
+    employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
+    employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
+    employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+}
+
 fun list(){
     employees.findAll()
         .forEach{ println(it) }
@@ -60,11 +82,6 @@ fun paySlip(){
 }
 
 
-fun dummyData() {
-    employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
-    employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
-    employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
-}
 
 
 internal fun getEmployeeById(): Employee? {
@@ -72,26 +89,6 @@ internal fun getEmployeeById(): Employee? {
     val employeeID = readLine()!!.toInt()
     return employees.findOne(employeeID)
 }
-
-
-
-
-fun menu() : Int {
-    print(""" __________________________________________
-              |              Employee Menu               |
-              |   1. Add Employee                        | 
-              |   2. List All Employees                  |
-              |   3. Search Employees                    |
-              |   4. Print Payslip for Employee          |
-              |   5. Delete                              |
-              |   6. Update Employee                     |
-              |  -1. Exit                                |
-              |                                          |
-              |Enter Option : """.trimMargin())
-    return readLine()!!.toInt()
-}
-
-
 
 
 
