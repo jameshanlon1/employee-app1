@@ -29,6 +29,7 @@ fun start() {
             3 -> search()
             4 -> paySlip()
             5 -> delete()
+            6 -> update()
             -99 -> dummyData()
             -1 -> println("Exiting App")
             else -> println("Invalid Option")
@@ -76,16 +77,17 @@ internal fun getEmployeeById(): Employee? {
 
 
 fun menu() : Int {
-    print(""" 
-         |Employee Menu
-         |   1. Add Employee
-         |   2. List All Employees
-         |   3. Search Employees 
-         |   4. Print Payslip for Employee
-         |   5. Delete
-         |  -1. Exit
-         |       
-         |Enter Option : """.trimMargin())
+    print(""" __________________________________________
+              |              Employee Menu               |
+              |   1. Add Employee                        | 
+              |   2. List All Employees                  |
+              |   3. Search Employees                    |
+              |   4. Print Payslip for Employee          |
+              |   5. Delete                              |
+              |   6. Update Employee                     |
+              |  -1. Exit                                |
+              |                                          |
+              |Enter Option : """.trimMargin())
     return readLine()!!.toInt()
 }
 
@@ -120,12 +122,34 @@ fun add(){
 
 
 fun update(){
+    print("Enter the employee id to update: ")
+    val employeeID = readLine()!!.toInt()
 
+
+
+    print("Enter first name: ")
+    val firstName = readLine().toString()
+    print("Enter surname: ")
+    val surname = readLine().toString()
+    print("Enter gender (m/f): ")
+    val gender = readLine()!!.toCharArray()[0]
+    print("Enter gross salary: ")
+    val grossSalary = readLine()!!.toDouble()
+    print("Enter PAYE %: ")
+    val payePercentage = readLine()!!.toDouble()
+    print("Enter PRSI %: ")
+    val prsiPercentage = readLine()!!.toDouble()
+    print("Enter Annual Bonus: ")
+    val annualBonus= readLine()!!.toDouble()
+    print("Enter Cycle to Work Deduction: ")
+    val cycleToWorkMonthlyDeduction= readLine()!!.toDouble()
+
+    employees.replace(Employee(firstName, surname, gender, employeeID, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction))
 }
 
 
 fun delete() { //delete event number that was entered
-    print("Enter the employee id to search by: ")
+    print("Enter the employee id to delete: ")
     val employeeID = readLine()!!.toInt()
         employees.remove(employeeID)
     }

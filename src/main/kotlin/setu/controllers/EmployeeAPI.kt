@@ -26,10 +26,13 @@ class EmployeeAPI {
         employees.add(employee)
     }
 
-    fun remove(employeeID: Int) {
-        employees.remove(getEmployeeById())
+    fun remove(employee: Int) {
+        employees.removeAt(employee)
     }
 
+    fun replace(employee: Employee){
+        employees.set(getId(), employee)
+    }
 
 
 }
