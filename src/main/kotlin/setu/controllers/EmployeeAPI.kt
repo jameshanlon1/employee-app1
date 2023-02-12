@@ -30,9 +30,7 @@ class EmployeeAPI {
         employees.removeAt(employee)
     }
 
-    fun replace(employee: Employee){
-        employees.set()
-    }
+
 
 
 }

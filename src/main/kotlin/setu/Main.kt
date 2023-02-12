@@ -124,7 +124,7 @@ fun add(){
 fun update(){
     print("Enter the employee id to update: ")
     val employeeID = readLine()!!.toInt()
-
+    employees.remove(employeeID)
 
 
     print("Enter first name: ")
@@ -144,7 +144,9 @@ fun update(){
     print("Enter Cycle to Work Deduction: ")
     val cycleToWorkMonthlyDeduction= readLine()!!.toDouble()
 
-    employees.replace(Employee(firstName, surname, gender, employeeID, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction))
+    employees.create(Employee(firstName, surname, gender, employeeID, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction))
+
+
 }
 
 
